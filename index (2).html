@@ -1,0 +1,446 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .wrap { font-family: 'DM Sans', sans-serif; background: var(--color-background-primary); color: var(--color-text-primary); }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0f0f1a 0%, #1a1035 50%, #0d1f3c 100%); padding: 48px 40px 40px; position: relative; overflow: hidden; }
+  .hero::before { content:''; position:absolute; top:-60px; right:-60px; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle,rgba(139,92,246,.25) 0%,transparent 70%); }
+  .hero::after { content:''; position:absolute; bottom:-40px; left:20px; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle,rgba(59,130,246,.18) 0%,transparent 70%); }
+  .tag { display:inline-block; font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#a78bfa; border:1px solid rgba(167,139,250,.35); border-radius:20px; padding:5px 14px; margin-bottom:20px; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; line-height:1.15; color:#fff; margin-bottom:12px; position:relative; z-index:1; }
+  .hero h1 span { color:#a78bfa; }
+  .hero-p { font-size:14px; color:rgba(255,255,255,.65); line-height:1.7; max-width:460px; position:relative; z-index:1; }
+  .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,.08); margin-top:32px; border-radius:12px; overflow:hidden; position:relative; z-index:1; }
+  .stat { background:rgba(255,255,255,.05); padding:16px 12px; text-align:center; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:#a78bfa; display:block; }
+  .stat-label { font-size:11px; color:rgba(255,255,255,.5); margin-top:2px; display:block; }
+
+  /* BODY */
+  .body { padding: 32px 40px 40px; }
+  .section-title { font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--color-text-secondary); margin-bottom:16px; opacity:.7; }
+  .services-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:28px; }
+  .service-card { border:0.5px solid var(--color-border-tertiary); border-radius:12px; padding:16px; background:var(--color-background-secondary); }
+  .svc-icon { width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:10px; }
+  .s1{background:rgba(139,92,246,.12);} .s2{background:rgba(59,130,246,.12);} .s3{background:rgba(16,185,129,.12);} .s4{background:rgba(245,158,11,.12);} .s5{background:rgba(239,68,68,.12);}
+  .service-card h3 { font-size:13px; font-weight:500; margin-bottom:4px; }
+  .service-card p { font-size:11px; color:var(--color-text-secondary); line-height:1.5; }
+  .divider { height:0.5px; background:var(--color-border-tertiary); margin:24px 0; }
+  .model-box { border:0.5px solid var(--color-border-tertiary); border-radius:14px; padding:20px; background:var(--color-background-secondary); margin-bottom:28px; }
+  .model-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; margin-bottom:14px; }
+  .model-row { display:flex; gap:8px; align-items:flex-start; margin-bottom:10px; }
+  .dot { width:7px; height:7px; border-radius:50%; background:#a78bfa; margin-top:5px; flex-shrink:0; }
+  .model-row p { font-size:13px; color:var(--color-text-secondary); line-height:1.6; }
+  .model-row strong { color:var(--color-text-primary); font-weight:500; }
+  .phases { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:28px; }
+  .phase { border:0.5px solid var(--color-border-tertiary); border-radius:12px; padding:14px; background:var(--color-background-secondary); }
+  .phase-num { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; color:var(--color-border-secondary); line-height:1; margin-bottom:6px; }
+  .phase h4 { font-size:12px; font-weight:500; margin-bottom:4px; }
+  .phase p { font-size:11px; color:var(--color-text-secondary); line-height:1.5; }
+  .cta { background:linear-gradient(135deg,#1a0f35 0%,#0d1f3c 100%); border-radius:14px; padding:24px; text-align:center; }
+  .cta h3 { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; margin-bottom:8px; }
+  .cta p { font-size:13px; color:rgba(255,255,255,.6); margin-bottom:18px; line-height:1.6; }
+  .cta-btn { display:inline-block; background:#a78bfa; color:#fff; font-size:13px; font-weight:500; padding:10px 28px; border-radius:24px; cursor:pointer; border:none; font-family:'DM Sans',sans-serif; transition:background .2s,transform .15s; }
+  .cta-btn:hover { background:#9061f9; transform:scale(1.03); }
+
+  /* FORM */
+  .form-wrap { max-width:640px; margin:0 auto; padding:40px 32px 60px; }
+  .form-header { text-align:center; margin-bottom:36px; }
+  .form-header h2 { font-family:'Playfair Display',serif; font-size:28px; font-weight:900; margin-bottom:8px; }
+  .form-header h2 span { color:#a78bfa; }
+  .form-header p { font-size:13px; color:var(--color-text-secondary); line-height:1.6; }
+  .progress-bar { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:36px; }
+  .step-dot { width:28px; height:28px; border-radius:50%; border:1.5px solid var(--color-border-secondary); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:500; color:var(--color-text-secondary); transition:all .3s; }
+  .step-dot.done { background:#a78bfa; border-color:#a78bfa; color:#fff; }
+  .step-dot.active { border-color:#a78bfa; color:#a78bfa; }
+  .step-line { flex:1; max-width:48px; height:1px; background:var(--color-border-tertiary); }
+  .step-line.done { background:#a78bfa; }
+  .step { display:none; }
+  .step.active { display:block; }
+  .step-label { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#a78bfa; margin-bottom:20px; font-weight:500; }
+  .field { margin-bottom:18px; }
+  .field label { display:block; font-size:12px; font-weight:500; color:var(--color-text-secondary); margin-bottom:6px; }
+  .field input, .field select, .field textarea { width:100%; padding:11px 14px; border:0.5px solid var(--color-border-secondary); border-radius:10px; background:var(--color-background-secondary); color:var(--color-text-primary); font-family:'DM Sans',sans-serif; font-size:13px; outline:none; transition:border-color .2s; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color:#a78bfa; }
+  .field textarea { resize:vertical; min-height:80px; line-height:1.6; }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+  /* SKILLS — fixed: no onclick on label, use JS only */
+  .skills-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:8px; }
+  .skill-card { display:flex; align-items:center; gap:10px; border:0.5px solid var(--color-border-tertiary); border-radius:10px; padding:11px 13px; cursor:pointer; transition:border-color .2s, background .2s; background:var(--color-background-secondary); user-select:none; }
+  .skill-card:hover { border-color:var(--color-border-secondary); }
+  .skill-card.selected { border-color:#a78bfa; background:rgba(167,139,250,.1); }
+  .skill-card .sk-icon { font-size:18px; width:28px; text-align:center; flex-shrink:0; }
+  .skill-card .sk-text { font-size:12px; font-weight:500; color:var(--color-text-primary); }
+
+  /* EXP */
+  .exp-options { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:8px; }
+  .exp-card { border:0.5px solid var(--color-border-tertiary); border-radius:10px; padding:12px 14px; cursor:pointer; transition:border-color .2s,background .2s; background:var(--color-background-secondary); text-align:center; user-select:none; }
+  .exp-card:hover { border-color:var(--color-border-secondary); }
+  .exp-card.selected { border-color:#a78bfa; background:rgba(167,139,250,.1); }
+  .exp-card .exp-title { font-size:13px; font-weight:500; margin-bottom:2px; }
+  .exp-card .exp-sub { font-size:11px; color:var(--color-text-secondary); }
+
+  .btn-row { display:flex; gap:10px; margin-top:28px; }
+  .btn-back { flex:1; padding:11px; border:0.5px solid var(--color-border-secondary); border-radius:24px; background:transparent; color:var(--color-text-secondary); font-family:'DM Sans',sans-serif; font-size:13px; cursor:pointer; }
+  .btn-back:hover { border-color:var(--color-border-primary); }
+  .btn-next { flex:2; padding:11px; background:#a78bfa; border:none; border-radius:24px; color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; transition:background .2s,transform .15s; }
+  .btn-next:hover { background:#9061f9; transform:scale(1.02); }
+  .btn-next:disabled { background:#888; cursor:not-allowed; transform:none; }
+
+  /* OVERLAY */
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:999; align-items:center; justify-content:center; flex-direction:column; gap:14px; }
+  .overlay.show { display:flex; }
+  .spinner { width:36px; height:36px; border:3px solid rgba(167,139,250,.3); border-top-color:#a78bfa; border-radius:50%; animation:spin .8s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .overlay-txt { color:#fff; font-size:14px; font-family:'DM Sans',sans-serif; }
+
+  /* SUCCESS */
+  .success-wrap { text-align:center; padding:60px 24px; }
+  .success-icon { font-size:52px; margin-bottom:20px; }
+  .success-wrap h2 { font-family:'Playfair Display',serif; font-size:26px; font-weight:900; margin-bottom:10px; }
+  .success-wrap h2 span { color:#a78bfa; }
+  .success-note { font-size:13px; color:var(--color-text-secondary); line-height:1.7; max-width:360px; margin:0 auto 28px; }
+  .summary-box { border:0.5px solid var(--color-border-tertiary); border-radius:14px; padding:20px; background:var(--color-background-secondary); text-align:left; max-width:420px; margin:0 auto 24px; }
+  .s-row { display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; }
+  .s-row:last-child { margin-bottom:0; }
+  .s-key { font-size:11px; font-weight:500; color:var(--color-text-secondary); min-width:90px; padding-top:1px; flex-shrink:0; }
+  .s-val { font-size:13px; color:var(--color-text-primary); line-height:1.5; }
+  .btn-home { background:#a78bfa; color:#fff; border:none; border-radius:24px; padding:10px 28px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; }
+  .btn-home:hover { background:#9061f9; }
+  .error-box { background:rgba(239,68,68,.1); border:0.5px solid rgba(239,68,68,.4); border-radius:10px; padding:10px 14px; font-size:12px; color:#ef4444; margin-top:12px; display:none; }
+</style>
+
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <p class="overlay-txt">Envoi en cours...</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ══ PAGE ACCUEIL ══ -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="tag">Proposition Collaborative</div>
+      <h1>Créons une<br><span>Agence Partagée</span><br>ensemble</h1>
+      <p class="hero-p">Une opportunité unique de regrouper nos compétences, mutualiser nos ressources et conquérir ensemble plusieurs marchés porteurs.</p>
+      <div class="stats-row">
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Domaines</span></div>
+        <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Potentiel</span></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Équipe</span></div>
+      </div>
+    </div>
+    <div class="body">
+      <p class="section-title">Nos domaines d'activité</p>
+      <div class="services-grid">
+        <div class="service-card"><div class="svc-icon s1">📣</div><h3>Marketing Digital</h3><p>Réseaux sociaux, publicité en ligne, gestion de communautés et stratégie de contenu.</p></div>
+        <div class="service-card"><div class="svc-icon s2">💻</div><h3>Développement Web & App</h3><p>Sites vitrines, e-commerce, applications mobiles et solutions sur mesure.</p></div>
+        <div class="service-card"><div class="svc-icon s3">🎨</div><h3>Design & Création</h3><p>Identité visuelle, graphisme, motion design et direction artistique.</p></div>
+        <div class="service-card"><div class="svc-icon s4">📈</div><h3>Conseil & Stratégie</h3><p>Accompagnement business, études de marché et transformation digitale.</p></div>
+        <div class="service-card" style="grid-column:1/-1"><div class="svc-icon s5">🖨️</div><h3>Publicité & Impression</h3><p>Flyers, affiches, brochures, kakémonos et tous supports print professionnels.</p></div>
+      </div>
+      <div class="divider"></div>
+      <p class="section-title">Modèle de partenariat</p>
+      <div class="model-box">
+        <div class="model-title">Comment on fonctionne ?</div>
+        <div class="model-row"><div class="dot"></div><p><strong>Capital partagé équitablement</strong> — chaque membre contribue selon ses moyens et reçoit une part proportionnelle des bénéfices.</p></div>
+        <div class="model-row"><div class="dot"></div><p><strong>Rôles définis selon les compétences</strong> — chacun intervient dans son domaine d'expertise, sans empiéter sur les autres.</p></div>
+        <div class="model-row"><div class="dot"></div><p><strong>Décisions collectives</strong> — les grandes orientations sont prises ensemble, avec transparence totale sur les finances.</p></div>
+        <div class="model-row"><div class="dot"></div><p><strong>Clients partagés</strong> — un client qui contacte l'agence peut bénéficier de tous nos services, générant plus de valeur pour tous.</p></div>
+      </div>
+      <p class="section-title">Plan de lancement</p>
+      <div class="phases">
+        <div class="phase"><div class="phase-num">01</div><h4>Fondation</h4><p>Accord, statuts, répartition des rôles et ouverture du compte.</p></div>
+        <div class="phase"><div class="phase-num">02</div><h4>Lancement</h4><p>Site web, identité de l'agence, prospection des premiers clients.</p></div>
+        <div class="phase"><div class="phase-num">03</div><h4>Croissance</h4><p>Recrutement, nouveaux marchés et expansion des services.</p></div>
+      </div>
+      <div class="cta">
+        <h3>Rejoignez l'aventure 🚀</h3>
+        <p>Ensemble, on est plus forts. Chaque compétence compte, chaque membre apporte une valeur unique à l'équipe.</p>
+        <button class="cta-btn" id="btn-join">Je suis intéressé(e) — S'inscrire ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PAGE FORMULAIRE ══ -->
+  <div class="page" id="page-form">
+    <div class="form-wrap">
+      <div class="form-header">
+        <h2>Rejoindre l'<span>Agence</span></h2>
+        <p>Remplis ce formulaire pour exprimer ton intérêt et nous présenter ton profil.</p>
+      </div>
+      <div class="progress-bar">
+        <div class="step-dot active" id="dot-1">1</div>
+        <div class="step-line" id="line-1"></div>
+        <div class="step-dot" id="dot-2">2</div>
+        <div class="step-line" id="line-2"></div>
+        <div class="step-dot" id="dot-3">3</div>
+        <div class="step-line" id="line-3"></div>
+        <div class="step-dot" id="dot-4">4</div>
+      </div>
+
+      <!-- Étape 1 -->
+      <div class="step active" id="step-1">
+        <div class="step-label">Étape 1 — Informations personnelles</div>
+        <div class="field-row">
+          <div class="field"><label>Prénom *</label><input type="text" id="f-prenom" placeholder="Ton prénom"></div>
+          <div class="field"><label>Nom *</label><input type="text" id="f-nom" placeholder="Ton nom"></div>
+        </div>
+        <div class="field"><label>Numéro WhatsApp / Téléphone *</label><input type="tel" id="f-tel" placeholder="+213 XX XX XX XX"></div>
+        <div class="field"><label>Email (optionnel)</label><input type="email" id="f-email" placeholder="ton@email.com"></div>
+        <div class="field"><label>Ville *</label><input type="text" id="f-ville" placeholder="Ex : Alger, Oran, Constantine..."></div>
+        <div class="btn-row">
+          <button class="btn-back" id="back-to-home">← Retour</button>
+          <button class="btn-next" id="next-1">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- Étape 2 -->
+      <div class="step" id="step-2">
+        <div class="step-label">Étape 2 — Domaines de compétence</div>
+        <div class="field"><label>Dans quels domaines peux-tu contribuer ? (plusieurs choix possibles)</label></div>
+        <div class="skills-grid" id="skills-grid">
+          <div class="skill-card" data-value="Marketing Digital"><span class="sk-icon">📣</span><span class="sk-text">Marketing Digital</span></div>
+          <div class="skill-card" data-value="Développement Web"><span class="sk-icon">💻</span><span class="sk-text">Développement Web</span></div>
+          <div class="skill-card" data-value="Applications Mobile"><span class="sk-icon">📱</span><span class="sk-text">Applications Mobile</span></div>
+          <div class="skill-card" data-value="Design Graphique"><span class="sk-icon">🎨</span><span class="sk-text">Design Graphique</span></div>
+          <div class="skill-card" data-value="Motion Design / Vidéo"><span class="sk-icon">🎬</span><span class="sk-text">Motion Design / Vidéo</span></div>
+          <div class="skill-card" data-value="Rédaction / Copywriting"><span class="sk-icon">✍️</span><span class="sk-text">Rédaction / Copywriting</span></div>
+          <div class="skill-card" data-value="Publicité & Impression"><span class="sk-icon">🖨️</span><span class="sk-text">Publicité & Impression</span></div>
+          <div class="skill-card" data-value="Conseil & Stratégie"><span class="sk-icon">📈</span><span class="sk-text">Conseil & Stratégie</span></div>
+          <div class="skill-card" data-value="Gestion / Administration" style="grid-column:1/-1"><span class="sk-icon">🗂️</span><span class="sk-text">Gestion & Administration</span></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" id="back-1">← Retour</button>
+          <button class="btn-next" id="next-2">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- Étape 3 -->
+      <div class="step" id="step-3">
+        <div class="step-label">Étape 3 — Expérience & disponibilité</div>
+        <div class="field">
+          <label>Quel est ton niveau d'expérience général ?</label>
+          <div class="exp-options" id="exp-options">
+            <div class="exp-card" data-value="Débutant"><div class="exp-title">Débutant</div><div class="exp-sub">Je débute, motivé à apprendre</div></div>
+            <div class="exp-card" data-value="Intermédiaire"><div class="exp-title">Intermédiaire</div><div class="exp-sub">Quelques projets réalisés</div></div>
+            <div class="exp-card" data-value="Confirmé"><div class="exp-title">Confirmé</div><div class="exp-sub">Expérience solide dans mon domaine</div></div>
+            <div class="exp-card" data-value="Expert"><div class="exp-title">Expert</div><div class="exp-sub">Professionnel avec plusieurs années</div></div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:18px">
+          <label>Décris brièvement ton expérience la plus récente *</label>
+          <textarea id="f-exp" placeholder="Ex : J'ai géré les réseaux sociaux d'une boutique en ligne pendant 1 an..."></textarea>
+        </div>
+        <div class="field">
+          <label>Disponibilité par semaine</label>
+          <select id="f-dispo">
+            <option value="">— Sélectionner —</option>
+            <option>Moins de 10h / semaine</option>
+            <option>10 à 20h / semaine</option>
+            <option>20 à 35h / semaine</option>
+            <option>Temps plein (35h+)</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn-back" id="back-2">← Retour</button>
+          <button class="btn-next" id="next-3">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- Étape 4 -->
+      <div class="step" id="step-4">
+        <div class="step-label">Étape 4 — Motivation & attentes</div>
+        <div class="field">
+          <label>Pourquoi veux-tu rejoindre cette agence ? *</label>
+          <textarea id="f-motiv" placeholder="Parle-nous de ta motivation, ce que tu attends du projet..."></textarea>
+        </div>
+        <div class="field">
+          <label>As-tu déjà des clients ou des contacts potentiels ?</label>
+          <select id="f-clients">
+            <option value="">— Sélectionner —</option>
+            <option>Oui, j'ai déjà des clients actifs</option>
+            <option>Oui, j'ai des contacts intéressés</option>
+            <option>Non, mais je peux prospecter</option>
+            <option>Non, je compte sur l'équipe</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Lien portfolio / LinkedIn / Behance (optionnel)</label>
+          <input type="url" id="f-portfolio" placeholder="https://...">
+        </div>
+        <div class="error-box" id="error-box">Une erreur s'est produite. Vérifie ta connexion et réessaie.</div>
+        <div class="btn-row">
+          <button class="btn-back" id="back-3">← Retour</button>
+          <button class="btn-next" id="btn-submit">✓ Envoyer ma candidature</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ PAGE SUCCÈS ══ -->
+  <div class="page" id="page-success">
+    <div class="success-wrap">
+      <div class="success-icon">🎉</div>
+      <h2>Candidature <span>envoyée !</span></h2>
+      <p class="success-note">Merci ! Ton profil a bien été enregistré. Nous te contacterons très prochainement sur WhatsApp pour discuter des prochaines étapes.</p>
+      <div class="summary-box" id="summary-box"></div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:24px;">📊 Tes informations sont maintenant dans notre Google Sheets. On se retrouve bientôt 🚀</p>
+      <button class="btn-home" id="btn-home">← Retour à l'accueil</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbx8xR7EBiPrR9iEI2Avm6GkUutLah8rlDkLl3ndd9HoAOOYekeflU7V5WOWXKHOG1EC/exec';
+  var selectedExp = '';
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('step-' + n).classList.add('active');
+    for (var i = 1; i <= 4; i++) {
+      var dot = document.getElementById('dot-' + i);
+      dot.classList.remove('active', 'done');
+      if (i < n) dot.classList.add('done');
+      else if (i === n) dot.classList.add('active');
+    }
+    for (var j = 1; j <= 3; j++) {
+      var line = document.getElementById('line-' + j);
+      line.classList.remove('done');
+      if (j < n) line.classList.add('done');
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function val(id) { return document.getElementById(id).value.trim(); }
+
+  /* ── Navigation buttons ── */
+  document.getElementById('btn-join').addEventListener('click', function() {
+    showPage('page-form');
+    showStep(1);
+  });
+
+  document.getElementById('back-to-home').addEventListener('click', function() {
+    showPage('page-home');
+  });
+
+  document.getElementById('btn-home').addEventListener('click', function() {
+    showPage('page-home');
+  });
+
+  document.getElementById('next-1').addEventListener('click', function() {
+    if (!val('f-prenom') || !val('f-nom') || !val('f-tel') || !val('f-ville')) {
+      alert('Merci de remplir tous les champs obligatoires (*).');
+      return;
+    }
+    showStep(2);
+  });
+
+  document.getElementById('back-1').addEventListener('click', function() { showStep(1); });
+
+  document.getElementById('next-2').addEventListener('click', function() {
+    var selected = document.querySelectorAll('#skills-grid .skill-card.selected');
+    if (selected.length === 0) {
+      alert('Merci de sélectionner au moins un domaine de compétence.');
+      return;
+    }
+    showStep(3);
+  });
+
+  document.getElementById('back-2').addEventListener('click', function() { showStep(2); });
+
+  document.getElementById('next-3').addEventListener('click', function() {
+    if (!val('f-exp')) {
+      alert('Merci de décrire ton expérience récente.');
+      return;
+    }
+    showStep(4);
+  });
+
+  document.getElementById('back-3').addEventListener('click', function() { showStep(3); });
+
+  /* ── Skill cards toggle ── */
+  document.querySelectorAll('#skills-grid .skill-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      this.classList.toggle('selected');
+    });
+  });
+
+  /* ── Exp cards select ── */
+  document.querySelectorAll('#exp-options .exp-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      document.querySelectorAll('#exp-options .exp-card').forEach(function(c){ c.classList.remove('selected'); });
+      card.classList.add('selected');
+      selectedExp = card.getAttribute('data-value');
+    });
+  });
+
+  /* ── Submit ── */
+  document.getElementById('btn-submit').addEventListener('click', async function() {
+    var motiv = val('f-motiv');
+    if (!motiv) { alert("Merci d'écrire ta motivation."); return; }
+
+    var skills = Array.from(document.querySelectorAll('#skills-grid .skill-card.selected'))
+                      .map(function(c){ return c.getAttribute('data-value'); }).join(', ');
+
+    var data = {
+      prenom:    val('f-prenom'),
+      nom:       val('f-nom'),
+      tel:       val('f-tel'),
+      email:     val('f-email'),
+      ville:     val('f-ville'),
+      skills:    skills,
+      niveau:    selectedExp || 'Non précisé',
+      exp:       val('f-exp'),
+      dispo:     document.getElementById('f-dispo').value,
+      clients:   document.getElementById('f-clients').value,
+      portfolio: val('f-portfolio'),
+      motiv:     motiv
+    };
+
+    document.getElementById('overlay').classList.add('show');
+    document.getElementById('btn-submit').disabled = true;
+    document.getElementById('error-box').style.display = 'none';
+
+    try {
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      document.getElementById('overlay').classList.remove('show');
+
+      var box = document.getElementById('summary-box');
+      box.innerHTML =
+        '<div class="s-row"><span class="s-key">Nom complet</span><span class="s-val">' + data.prenom + ' ' + data.nom + '</span></div>' +
+        '<div class="s-row"><span class="s-key">Contact</span><span class="s-val">' + data.tel + (data.email ? ' · ' + data.email : '') + '</span></div>' +
+        '<div class="s-row"><span class="s-key">Ville</span><span class="s-val">' + data.ville + '</span></div>' +
+        '<div class="s-row"><span class="s-key">Compétences</span><span class="s-val">' + (data.skills || '—') + '</span></div>' +
+        '<div class="s-row"><span class="s-key">Niveau</span><span class="s-val">' + data.niveau + '</span></div>' +
+        '<div class="s-row"><span class="s-key">Disponibilité</span><span class="s-val">' + (data.dispo || '—') + '</span></div>' +
+        (data.portfolio ? '<div class="s-row"><span class="s-key">Portfolio</span><span class="s-val">' + data.portfolio + '</span></div>' : '');
+
+      showPage('page-success');
+
+    } catch (err) {
+      document.getElementById('overlay').classList.remove('show');
+      document.getElementById('btn-submit').disabled = false;
+      document.getElementById('error-box').style.display = 'block';
+    }
+  });
+})();
+</script>
